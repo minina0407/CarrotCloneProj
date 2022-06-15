@@ -1,13 +1,13 @@
-package com.example.carrotproj;
+package com.example.reviewmate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CarrotProjApplication {
+public class ReviewMateApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CarrotProjApplication.class, args);
+        SpringApplication.run(ReviewMateApplication.class, args);
     }
 
 }

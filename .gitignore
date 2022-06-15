@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 !**/src/main/java/resources/application.yml
 
+
 ### STS ###
 .apt_generated
 .classpath
