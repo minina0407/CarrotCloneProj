@@ -1,6 +1,5 @@
 package com.example.reviewmate.domain.group;
 
-import com.example.reviewmate.domain.user.UserVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

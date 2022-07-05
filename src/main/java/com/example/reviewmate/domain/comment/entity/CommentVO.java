@@ -1,7 +1,7 @@
-package com.example.reviewmate.domain.comment;
+package com.example.reviewmate.domain.comment.entity;
 
-import com.example.reviewmate.domain.todo.FeedBackVO;
-import com.example.reviewmate.domain.user.UserVO;
+import com.example.reviewmate.domain.todo.entity.FeedBackVO;
+import com.example.reviewmate.domain.user.entity.UserVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,6 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -40,8 +38,9 @@ public class CommentVO {
     /*
     user는 댓글을 여러개 쓸 수 있다. 댓글은 한 유저만 쓸 수 있다.
      */
-    @OneToMany(mappedBy = "comment",fetch = FetchType.LAZY)
-    List<UserVO> users = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_idx_fk", nullable = false, updatable = false)
+    UserVO user;
 
     /*
     피드백 게시글은 여러개의 댓글을 가질 수 있다. 댓글은 한 게시글에 쓸 수 있다.

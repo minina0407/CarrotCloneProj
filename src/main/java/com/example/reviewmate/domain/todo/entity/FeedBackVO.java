@@ -1,9 +1,9 @@
-package com.example.reviewmate.domain.todo;
+package com.example.reviewmate.domain.todo.entity;
 
 
 
-import com.example.reviewmate.domain.comment.CommentVO;
-import com.example.reviewmate.domain.user.UserVO;
+import com.example.reviewmate.domain.comment.entity.CommentVO;
+import com.example.reviewmate.domain.user.entity.UserVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

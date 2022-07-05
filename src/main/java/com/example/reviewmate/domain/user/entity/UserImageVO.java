@@ -1,4 +1,4 @@
-package com.example.reviewmate.domain.user;
+package com.example.reviewmate.domain.user.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

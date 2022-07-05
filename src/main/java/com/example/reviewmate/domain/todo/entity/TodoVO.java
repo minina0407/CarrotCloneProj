@@ -1,7 +1,8 @@
-package com.example.reviewmate.domain.todo;
+package com.example.reviewmate.domain.todo.entity;
 
-import com.example.reviewmate.domain.user.UserVO;
+import com.example.reviewmate.domain.user.entity.UserVO;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +22,7 @@ public class TodoVO {
     private String contents;
 
     @Column(name = "state",updatable = true,nullable = false)
-    private String state; // TODO// enum으로 고쳐야하나 고민해보기
+    private int state;
 
     /*
     유저는 여러개의 할일을 가질 수 있다. 할일은 하나의 유저만 가질 수 있다.
@@ -30,5 +31,24 @@ public class TodoVO {
     @JoinColumn(name = "user_idx_fk",nullable = false,updatable = false)
     UserVO user;
 
+    public enum STATE{
+        UNCOMPLETED,
+        COMPLETED
+    }
+
+    @Builder
+    public TodoVO(String contents, UserVO user,int state){
+        this.contents = contents;
+        this.user = user;
+        this.state = state;
+    }
+
+    public void updateContent(String contents){
+        this.contents = contents;
+    }
+
+    public void changeState(int state){
+        this.state = state;
+    }
 
  }

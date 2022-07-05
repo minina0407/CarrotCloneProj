@@ -1,13 +1,14 @@
-package com.example.reviewmate.domain.user;
+package com.example.reviewmate.domain.user.entity;
 
 
-import com.example.reviewmate.domain.todo.TodoVO;
-import com.example.reviewmate.domain.comment.CommentVO;
+import com.example.reviewmate.domain.todo.entity.TodoVO;
+import com.example.reviewmate.domain.comment.entity.CommentVO;
 import com.example.reviewmate.domain.group.GroupVO;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,9 +27,6 @@ public class UserVO {
     private Long idx;
 
 
-    @Column(name = "id",updatable = true,nullable = false)
-    private String id;
-
     @Column(name = "email",updatable = false,nullable = false,length = 100)
     private String email;
 
@@ -38,7 +36,7 @@ public class UserVO {
     @Column(name = "phone",updatable = true,nullable = true,length = 255)
     String phone;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at",updatable = false,nullable = false)
     LocalDateTime createdAt;
 
@@ -56,17 +54,25 @@ public class UserVO {
    @JoinColumn(name = "user_image_idx_fk")
    private UserImageVO userImage;
 
-   @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "user_idx_fk",updatable = false,nullable = false)
-   CommentVO comment;
+   @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+   List<CommentVO> comments = new ArrayList<>();
 
     /*
     유저는 여러 그룹에 가입할 수 있다. 하나의 그룹은 여러 유저를 가질 수 있다.
      */
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_idx_fk")
     private List<GroupVO> groups = new ArrayList<>();
 
 
+   @Builder
+    public UserVO (Long idx, String password, String email,String phone,LocalDateTime createdAt,String nickname,AuthVO auth){
+       this.auth=auth;
+       this.email= email;
+       this.password= password;
+       this.idx=idx;
+       this.phone=phone;
+       this.createdAt=createdAt;
+       this.nickname=nickname;
+   }
 }
