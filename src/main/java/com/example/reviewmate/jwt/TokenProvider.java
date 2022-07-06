@@ -1,5 +1,6 @@
 package com.example.reviewmate.jwt;
 
+import com.example.reviewmate.jwt.dto.TokenDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -32,6 +33,7 @@ public class TokenProvider implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
+    private static final String BEARER_TYPE = "bearer";
 
     private String secretKey;
     private  final long tokenValidityInMilliseconds;
@@ -57,7 +59,7 @@ public class TokenProvider implements InitializingBean {
      * @param authentication
      * @return
      */
-    public String createToken(Authentication authentication){
+    public TokenDTO createToken(Authentication authentication){
         //권한 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -66,14 +68,31 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        //access token 생성
-        return Jwts.builder() // jwt 빌드
-                .setSubject(authentication.getName()) //토큰에 저장될 데이터를 지정해준다.
-                //넘겨받은 유저정보의 이 메소드가 username을 가져옴
-                .claim(AUTHORITIES_KEY,authorities)
-                .signWith(Key, SignatureAlgorithm.HS512) // 파라미터로 받은 키로 sha512 알고리즘 사용하여 서명
-                .setExpiration(validity) // 토큰 만료 시간
+        String refreshToken = Jwts.builder()
+                .setExpiration(validity)
+                .signWith(Key,SignatureAlgorithm.HS512)
                 .compact();
+
+        String accessToken = Jwts.builder()
+                .setExpiration(validity) // 토큰 만료 시간
+                .signWith(Key,SignatureAlgorithm.HS512)  // 파라미터로 받은 키로 sha512 알고리즘 사용하여 서명
+                .setSubject(authentication.getName())  //토큰에 저장될 데이터를 지정해준다.
+                .claim(AUTHORITIES_KEY,authorities)
+                .compact();
+
+        //access token 생성
+        return  TokenDTO.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .accessTokenExpiresIn(validity.getTime())
+                .grantType(BEARER_TYPE)
+                .build();
+
+
+
+
+
+
 
     }
 
