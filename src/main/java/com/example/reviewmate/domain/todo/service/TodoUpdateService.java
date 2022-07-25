@@ -1,12 +1,12 @@
 package com.example.reviewmate.domain.todo.service;
 
-        import com.example.reviewmate.domain.todo.dto.CreateTodo;
-        import com.example.reviewmate.domain.todo.entity.TodoVO;
-        import com.example.reviewmate.domain.todo.repository.TodoRepository;
-        import com.example.reviewmate.domain.user.entity.UserVO;
-        import com.example.reviewmate.domain.user.service.UserFindService;
-        import org.springframework.stereotype.Service;
-        import org.springframework.transaction.annotation.Transactional;
+import com.example.reviewmate.domain.todo.dto.CreateTodo;
+import com.example.reviewmate.domain.todo.entity.TodoVO;
+import com.example.reviewmate.domain.todo.repository.TodoRepository;
+import com.example.reviewmate.domain.user.entity.UserVO;
+import com.example.reviewmate.domain.user.service.UserFindService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TodoUpdateService {

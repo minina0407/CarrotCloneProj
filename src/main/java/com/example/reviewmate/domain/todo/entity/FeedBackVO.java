@@ -3,6 +3,7 @@ package com.example.reviewmate.domain.todo.entity;
 
 
 import com.example.reviewmate.domain.comment.entity.CommentVO;
+import com.example.reviewmate.domain.group.entity.GroupVO;
 import com.example.reviewmate.domain.user.entity.UserVO;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,7 +40,7 @@ public class FeedBackVO {
     user는 피드백게시글을 여러개 작성할 수 있다. 게시글은 한 사람에의해 작성될 수 있다.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx_fk")
+    @JoinColumn(name = "user_fk")
     UserVO user;
 
     /*
@@ -47,6 +48,10 @@ public class FeedBackVO {
      */
     @OneToMany(fetch = FetchType.LAZY)
     List <CommentVO> comments = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    GroupVO group;
+
 
 
 }
