@@ -1,4 +1,4 @@
-package com.example.reviewmate.domain.group;
+package com.example.reviewmate.domain.group.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

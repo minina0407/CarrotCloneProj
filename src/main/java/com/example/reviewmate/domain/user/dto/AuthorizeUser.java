@@ -1,5 +1,6 @@
 package com.example.reviewmate.domain.user.dto;
 
+import com.example.reviewmate.jwt.dto.TokenDTO;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -22,6 +23,6 @@ public class AuthorizeUser {
     @AllArgsConstructor
     @Getter
     public static class Response{
-        String jwt;
+       TokenDTO tokenDTO;
     }
 }

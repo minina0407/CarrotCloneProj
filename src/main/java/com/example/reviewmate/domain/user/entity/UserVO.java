@@ -1,9 +1,10 @@
 package com.example.reviewmate.domain.user.entity;
 
 
+import com.example.reviewmate.domain.todo.entity.FeedBackVO;
 import com.example.reviewmate.domain.todo.entity.TodoVO;
 import com.example.reviewmate.domain.comment.entity.CommentVO;
-import com.example.reviewmate.domain.group.GroupVO;
+import com.example.reviewmate.domain.group.entity.GroupVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class UserVO {
     @Column(name = "nickname",updatable = true,nullable = false,length = 255)
     String nickname;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = AuthVO.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "auth_name_fk",nullable = false,updatable = true)
     AuthVO auth;
 
@@ -60,9 +61,11 @@ public class UserVO {
     /*
     유저는 여러 그룹에 가입할 수 있다. 하나의 그룹은 여러 유저를 가질 수 있다.
      */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_idx_fk")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<GroupVO> groups = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<FeedBackVO> feedBacks=new ArrayList<>();
 
 
    @Builder
