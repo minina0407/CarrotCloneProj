@@ -45,7 +45,6 @@ public class TodoVO {
 
     public void updateContent(String contents){
         this.contents = contents;
-
     }
 
     public void changeState(int state){

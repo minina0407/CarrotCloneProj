@@ -23,6 +23,6 @@ public class AuthorizeUser {
     @AllArgsConstructor
     @Getter
     public static class Response{
-       String jwt;
+       TokenDTO tokenDTO;
     }
 }
