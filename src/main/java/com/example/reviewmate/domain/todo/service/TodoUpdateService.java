@@ -42,18 +42,25 @@ public class TodoUpdateService {
         todoRepository.delete(todo);
     }
 
-    // 할 일 수정 -> content 수정
+
     @Transactional
-    public void updateContent(Long idx) {
+    public void updateContent(Long idx,String content) {
+        UserVO user = userFindService.getMyUserWithAuthorities();
+
         TodoVO todo = todoFindService.findByIdx(idx);
-        todo.updateContent(todo.getContents());
+
+        todo.updateContent(content);
+
+        todoRepository.save(todo);
+
+
     }
 
     // 할 일 수정 -> 상태만 변환
     @Transactional
-    public void changeState(Long idx) {
+    public void changeState(Long idx,int state) {
         TodoVO todo = todoFindService.findByIdx(idx);
-        todo.changeState(todo.getState());
+        todo.changeState(state);
     }
 
 
