@@ -29,31 +29,31 @@ public class AuthUpdateService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    @Transactional
-    public TokenDTO reissue(TokenRequestDTO request){
-        if(!tokenProvider.validateToken(request.getRefreshToken()))
-        {
-        throw new RuntimeException("refresh token이 유효하지 않습니다.");
+   // @Transactional
+  //  public TokenDTO reissue(TokenRequestDTO request){
+    //    if(!tokenProvider.validateToken(request.getRefreshToken()))
+     //   {
+     //   throw new RuntimeException("refresh token이 유효하지 않습니다.");
 
-        }
+    //    }
 
-        Authentication authentication = tokenProvider.getAuthentication(request.getAccessToken());
+     //   Authentication authentication = tokenProvider.getAuthentication(request.getAccessToken());
 
-        RefreshTokenVO refreshTokenVO = refreshTokenRepository.findByKey(authentication.getName())
-                .orElseThrow(()->new RuntimeException("로그아웃된 사용자입니다."));
+      //  RefreshTokenVO refreshTokenVO = refreshTokenRepository.findByKey(authentication.getName())
+      //          .orElseThrow(()->new RuntimeException("로그아웃된 사용자입니다."));
 
-        if(!refreshTokenVO.getValue().equals(request.getRefreshToken())){
-            throw new RuntimeException("토큰의 유저 정보가 일치 하지 않습니다.");
-        }
+      //  if(!refreshTokenVO.getValue().equals(request.getRefreshToken())){
+      //      throw new RuntimeException("토큰의 유저 정보가 일치 하지 않습니다.");
+       // }
+//
+      //  TokenDTO tokenDto = tokenProvider.createToken(authentication);
 
-        TokenDTO tokenDto = tokenProvider.createToken(authentication);
+      //  RefreshTokenVO refreshToken = refreshTokenVO.updateValue(tokenDto.getRefreshToken());
+      //  refreshTokenRepository.save(refreshToken);
 
-        RefreshTokenVO refreshToken = refreshTokenVO.updateValue(tokenDto.getRefreshToken());
-        refreshTokenRepository.save(refreshToken);
-
-        return tokenDto;
+       // return tokenDto;
 
     }
 
 
-}
+
